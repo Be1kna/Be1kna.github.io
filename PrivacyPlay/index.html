@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>True Snake - Privacy Awareness Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: hsl(50, 50%, 95%);
+            --foreground: hsl(45, 30%, 15%);
+            --card: hsl(48, 100%, 98%);
+            --card-foreground: hsl(45, 30%, 15%);
+            --popover: hsl(48, 100%, 98%);
+            --popover-foreground: hsl(45, 30%, 15%);
+            --primary: hsl(45, 90%, 55%);
+            --primary-foreground: hsl(45, 30%, 15%);
+            --secondary: hsl(40, 80%, 65%);
+            --secondary-foreground: hsl(45, 30%, 15%);
+            --muted: hsl(48, 40%, 90%);
+            --muted-foreground: hsl(45, 20%, 45%);
+            --accent: hsl(38, 95%, 60%);
+            --accent-foreground: hsl(45, 30%, 15%);
+            --destructive: hsl(0, 84.2%, 60.2%);
+            --destructive-foreground: hsl(210, 40%, 98%);
+            --border: hsl(45, 30%, 85%);
+            --input: hsl(45, 30%, 85%);
+            --ring: hsl(45, 90%, 55%);
+            --radius: 0.5rem;
+        }
+
+        [data-theme="dark"] {
+            --background: hsl(220, 15%, 8%);
+            --foreground: hsl(220, 10%, 95%);
+            --card: hsl(220, 15%, 15%);
+            --card-foreground: hsl(220, 10%, 90%);
+            --popover: hsl(220, 15%, 8%);
+            --popover-foreground: hsl(220, 10%, 95%);
+            --primary: hsl(210, 100%, 60%);
+            --primary-foreground: hsl(220, 15%, 95%);
+            --secondary: hsl(200, 75%, 65%);
+            --secondary-foreground: hsl(220, 15%, 95%);
+            --muted: hsl(220, 15%, 18%);
+            --muted-foreground: hsl(220, 10%, 70%);
+            --accent: hsl(45, 90%, 60%);
+            --accent-foreground: hsl(220, 15%, 10%);
+            --destructive: hsl(0, 75%, 60%);
+            --destructive-foreground: hsl(220, 15%, 98%);
+            --border: hsl(220, 15%, 30%);
+            --input: hsl(220, 15%, 20%);
+            --ring: hsl(210, 100%, 60%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 2xl;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 4xl;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .back-to-menu-btn {
+            position: absolute;
+            left: 0;
+            background: var(--muted);
+            color: var(--foreground);
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            z-index: 10;
+        }
+
+        .back-to-menu-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon i {
+            color: var(--primary-foreground);
+            font-size: 1.125rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-button {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .header-button:hover {
+            color: var(--foreground);
+        }
+
+        .theme-toggle {
+            background: var(--muted);
+            border: none;
+            border-radius: 0.375rem;
+            width: 2rem;
+            height: 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .theme-icon {
+            transition: transform 0.3s ease;
+        }
+
+        main {
+            max-width: 2xl;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .step-indicator {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: var(--primary-foreground);
+        }
+
+        .step-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .steps {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+        }
+
+        .step-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .step-circle.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        .step-circle.inactive {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .step-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .step-divider {
+            width: 2rem;
+            height: 0.125rem;
+            background: rgba(255, 255, 255, 0.3);
+            margin-left: 1rem;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon.primary { color: var(--primary); }
+        .card-icon.secondary { color: var(--secondary); }
+        .card-icon.accent { color: var(--accent); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 1.1rem;
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .button-primary:hover {
+            background: hsl(45, 90%, 50%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(45, 135, 0, 0.3);
+        }
+
+        [data-theme="dark"] .button-primary:hover {
+            background: hsl(210, 100%, 60%);
+            box-shadow: 0 6px 12px rgba(100, 149, 237, 0.4);
+        }
+
+        .button-secondary {
+            background: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        .button-secondary:hover {
+            background: hsl(40, 80%, 60%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(200, 150, 100, 0.3);
+        }
+
+        [data-theme="dark"] .button-secondary:hover {
+            background: hsl(200, 75%, 65%);
+            box-shadow: 0 6px 12px rgba(64, 224, 208, 0.4);
+        }
+
+        .button-accent {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .button-accent:hover {
+            background: hsl(38, 95%, 55%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 165, 0, 0.3);
+        }
+
+        [data-theme="dark"] .button-accent:hover {
+            background: hsl(45, 90%, 60%);
+            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .button-muted {
+            background: var(--muted);
+            color: var(--muted-foreground);
+        }
+
+        .button-muted:hover {
+            background: hsl(48, 40%, 85%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .button-muted {
+            background: var(--muted);
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+
+        [data-theme="dark"] .button-muted:hover {
+            background: hsl(220, 15%, 30%);
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--input);
+            border-radius: 0.5rem;
+            background: var(--background);
+            color: var(--foreground);
+            font-size: 1.3rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            ring: 2px solid var(--ring);
+            border-color: transparent;
+        }
+
+        .form-hint {
+            margin-top: 0.5rem;
+            font-size: 1.15rem;
+            color: var(--muted-foreground);
+        }
+
+        .form-error {
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--destructive);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .result-message {
+            margin-top: 1.5rem;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .result-success {
+            background: linear-gradient(135deg, hsl(55, 70%, 92%) 0%, hsl(50, 65%, 85%) 100%);
+            border: 2px solid hsl(45, 80%, 60%);
+        }
+
+        .result-error {
+            background: var(--muted);
+        }
+
+        .result-icon {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-icon.success {
+            color: #16a34a;
+        }
+
+        .result-icon.error {
+            color: var(--muted-foreground);
+        }
+
+        .warning-box {
+            margin-top: 1.5rem;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, hsl(0, 84%, 95%) 0%, hsl(0, 84%, 90%) 100%);
+            border: 2px solid var(--destructive);
+        }
+
+        [data-theme="dark"] .warning-box {
+            background: linear-gradient(135deg, hsl(0, 50%, 20%) 0%, hsl(0, 55%, 15%) 100%);
+            border-color: var(--destructive);
+        }
+
+        .warning-text h3, .warning-text p {
+            color: inherit;
+        }
+
+        [data-theme="dark"] .warning-text {
+            color: var(--foreground);
+        }
+
+        .warning-text h3 {
+            font-size: 1.2rem;
+        }
+
+        .warning-text p {
+            font-size: 1rem;
+        }
+
+        .warning-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .warning-icon {
+            color: var(--destructive);
+            font-size: 1.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .warning-text h3 {
+            font-weight: bold;
+            color: var(--destructive);
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-text p {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .warning-button {
+            background: var(--destructive);
+            color: var(--destructive-foreground);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .warning-button:hover {
+            background: hsl(0, 84%, 55%);
+        }
+
+        .game-canvas {
+            border: 2px solid var(--border);
+            background: hsl(48, 80%, 97%);
+            display: block;
+            margin: 0 auto 1.5rem;
+        }
+
+        .score-display {
+            margin-top: 1rem;
+        }
+
+        .score-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .score-value {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .game-over-box {
+            margin-top: 1.5rem;
+            text-align: center;
+            background: var(--muted);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .game-over-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-over-text {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            max-width: 28rem;
+            margin: 0 1rem;
+            max-height: 24rem;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            color: var(--muted-foreground);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--foreground);
+        }
+
+        .modal-body {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .modal-body p {
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-body strong {
+            color: var(--foreground);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+        }
+
+        .contact-divider {
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-footer {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        .final-score-circle {
+            width: 5rem;
+            height: 5rem;
+            margin: 0 auto 1rem;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .final-score-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-foreground);
+        }
+
+        .final-score-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .final-score-description {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+        }
+
+        .captured-image {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .captured-image p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .captured-image img {
+            width: 8rem;
+            height: 6rem;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .result-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-item.success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        [data-theme="dark"] .result-item.success {
+            background: hsl(120, 30%, 20%);
+            border: 1px solid hsl(120, 40%, 35%);
+        }
+
+        .result-item.warning {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        [data-theme="dark"] .result-item.warning {
+            background: hsl(0, 40%, 20%);
+            border: 1px solid hsl(0, 50%, 35%);
+        }
+
+        .result-item-icon {
+            font-size: 1.125rem;
+        }
+
+        .result-item-text {
+            font-size: 1rem;
+            flex: 1;
+            color: inherit;
+        }
+
+        .lessons-box {
+            background: hsl(45, 90%, 95%);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            border: 1px solid hsl(45, 90%, 85%);
+            margin-bottom: 1.5rem;
+        }
+
+        [data-theme="dark"] .lessons-box {
+            background: hsl(220, 15%, 20%);
+            border: 1px solid hsl(220, 15%, 30%);
+        }
+
+        .lessons-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .lessons-list {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        [data-theme="dark"] .lessons-list {
+            color: var(--foreground);
+        }
+
+        .captured-image p {
+            color: var(--foreground);
+            font-size: 1rem;
+        }
+
+        .lessons-list {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .lessons-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        .paykeeper-logo {
+            background: var(--muted);
+            color: var(--foreground);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .paykeeper-logo:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .paykeeper-text {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-top: 0.25rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .opacity-50 {
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .step-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>True Snake</h1>
+                        <p>Classic Gaming Experience</p>
+                    </div>
+                </div>
+            <div class="header-buttons">
+                <button class="header-button" onclick="openModal('privacy')">Privacy Policy</button>
+                <button class="header-button" onclick="openModal('terms')">Terms of Use</button>
+                <button class="header-button" onclick="openModal('contact')">Contact</button>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+        <!-- Main Content -->
+        <main>
+            <div id="content">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <div id="modal" class="modal-backdrop hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalTitle">Modal Title</h3>
+                    <button class="modal-close" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Modal content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State Management
+        let gameState = {
+            currentStep: 1,
+            cameraAllowed: false,
+            locationAllowed: false,
+            capturedImage: null,
+            userLocation: null,
+            privacyChecked: false,
+            termsChecked: false,
+            contactChecked: false,
+            score: 0,
+            accountCreated: false
+        };
+
+        // Game State Management
+        function updateGameState(updates) {
+            Object.assign(gameState, updates);
+        }
+
+        // Content Rendering
+        function renderContent() {
+            const content = document.getElementById('content');
+            
+            switch (gameState.currentStep) {
+                case 1:
+                    content.innerHTML = renderCameraPermission();
+                    break;
+                case 1.5:
+                    content.innerHTML = renderLocationPermission();
+                    break;
+                case 2:
+                    content.innerHTML = renderAccountCreation();
+                    break;
+                case 2.5:
+                    content.innerHTML = renderSnakeGame();
+                    break;
+                case 3:
+                    content.innerHTML = renderPaymentForm();
+                    break;
+                case 4:
+                    content.innerHTML = renderFinalResults();
+                    break;
+            }
+        }
+
+        // Camera Permission Component
+        function renderCameraPermission() {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-camera card-icon primary"></i>
+                        <h2 class="card-title">Welcome to True Snake!</h2>
+                        <p class="card-description">
+                            To provide you with the best gaming experience, we'd like to access your camera for profile setup and enhanced features.
+                        </p>
+                    </div>
+                    <div>
+                        <button class="button button-primary" onclick="requestCamera()">
+                            <i class="fas fa-camera" style="margin-right: 0.5rem;"></i>
+                            Allow Camera Access
+                        </button>
+                        <button class="button button-muted" onclick="skipCamera()">
+                            Skip Camera Access
+                        </button>
+                    </div>
+                    <div id="cameraResult"></div>
+                </div>
+            `;
+        }
+
+        function requestCamera() {
+            const button = event.target;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-camera" style="margin-right: 0.5rem;"></i>Requesting access...';
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } })
+                    .then(stream => {
+                        const video = document.createElement('video');
+                        video.srcObject = stream;
+                        video.play();
+                        
+                        video.onloadedmetadata = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            if (!ctx) return;
+                            
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            ctx.drawImage(video, 0, 0);
+                            const imageData = canvas.toDataURL('image/jpeg');
+                            
+                            stream.getTracks().forEach(track => track.stop());
+                            
+                            showCameraResult(true, "Camera access granted! Image captured for profile setup.");
+                            setTimeout(() => {
+                                updateGameState({ cameraAllowed: true, capturedImage: imageData, currentStep: 1.5 });
+                                renderContent();
+                            }, 2000);
+                        };
+                    })
+                    .catch(error => {
+                        console.log('Camera access denied:', error);
+                        showCameraResult(false, "Camera access denied. Let's try an alternative...");
+                        setTimeout(() => {
+                            updateGameState({ cameraAllowed: false, currentStep: 1.5 });
+                            renderContent();
+                        }, 1500);
+                    });
+            } else {
+                showCameraResult(false, "Camera access denied. Let's try an alternative...");
+                setTimeout(() => {
+                    updateGameState({ cameraAllowed: false, currentStep: 1.5 });
+                    renderContent();
+                }, 1500);
+            }
+        }
+
+        function skipCamera() {
+            updateGameState({ cameraAllowed: false, currentStep: 1.5 });
+            renderContent();
+        }
+
+        function showCameraResult(success, message) {
+            const resultDiv = document.getElementById('cameraResult');
+            resultDiv.innerHTML = `
+                <div class="result-message ${success ? 'result-success' : 'result-error'}">
+                    <div class="result-icon ${success ? 'success' : 'error'}">
+                        <i class="fas ${success ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                    </div>
+                    <p class="${success ? 'font-weight: 500' : ''}">${message}</p>
+                </div>
+            `;
+        }
+
+        // Location Permission Component
+        function renderLocationPermission() {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-map-marker-alt card-icon secondary"></i>
+                        <h2 class="card-title">Location Access</h2>
+                        <p class="card-description">
+                            We'd also like to access your location to provide region-specific gaming features and leaderboards.
+                        </p>
+                    </div>
+                    <div>
+                        <button class="button button-secondary" onclick="requestLocation()">
+                            <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>
+                            Allow Location Access
+                        </button>
+                        <button class="button button-muted" onclick="skipLocation()">
+                            Skip Location Access
+                        </button>
+                    </div>
+                    <div id="locationResult"></div>
+                </div>
+            `;
+        }
+
+        function requestLocation() {
+            const button = event.target;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>Requesting access...';
+
+            if (!navigator.geolocation) {
+                showLocationResult(false, "Location access denied. Proceeding without location data.");
+                setTimeout(() => {
+                    updateGameState({ locationAllowed: false, currentStep: 2 });
+                    renderContent();
+                }, 1500);
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const location = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    
+                    showLocationResult(true, "Location access granted! Your location has been recorded.");
+                    setTimeout(() => {
+                        updateGameState({ locationAllowed: true, userLocation: location, currentStep: 2 });
+                        renderContent();
+                    }, 2000);
+                },
+                (error) => {
+                    console.log('Location access denied:', error);
+                    showLocationResult(false, "Location access denied. Proceeding without location data.");
+                    setTimeout(() => {
+                        updateGameState({ locationAllowed: false, currentStep: 2 });
+                        renderContent();
+                    }, 1500);
+                }
+            );
+        }
+
+        function skipLocation() {
+            updateGameState({ locationAllowed: false, currentStep: 2 });
+            renderContent();
+        }
+
+        function showLocationResult(success, message) {
+            const resultDiv = document.getElementById('locationResult');
+            resultDiv.innerHTML = `
+                <div class="result-message ${success ? 'result-success' : 'result-error'}">
+                    <div class="result-icon ${success ? 'success' : 'error'}">
+                        <i class="fas ${success ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                    </div>
+                    <p class="${success ? 'font-weight: 500' : ''}">${message}</p>
+                </div>
+            `;
+        }
+
+        // Account Creation Component
+        function renderAccountCreation() {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-gamepad card-icon accent"></i>
+                        <h2 class="card-title">Create Account to Play!</h2>
+                        <p class="card-description">
+                            Join our gaming platform and test your skills with our classic Snake game.
+                        </p>
+                    </div>
+                    <form onsubmit="handleAccountSubmit(event)" class="account-form">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" id="password" class="form-input" placeholder="Enter a secure password" required>
+                            <div class="form-hint">Password must be 8+ characters with at least 1 digit and 1 symbol</div>
+                        </div>
+                        <button type="submit" class="button button-accent">Create Account & Start Playing</button>
+                    </form>
+                    <div id="accountWarning"></div>
+                </div>
+            `;
+        }
+
+        function handleAccountSubmit(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const validation = validatePassword(password);
+            
+            if (!validation.isValid) {
+                showAccountWarning();
+            } else {
+                updateGameState({ accountCreated: true, currentStep: 2.5 });
+                renderContent();
+            }
+        }
+
+        function validatePassword(password) {
+            const hasMinLength = password.length >= 8;
+            const hasDigit = /\d/.test(password);
+            const hasSymbol = /[^a-zA-Z0-9]/.test(password);
+            
+            return { hasMinLength, hasDigit, hasSymbol, isValid: hasMinLength && hasDigit && hasSymbol };
+        }
+
+        function showAccountWarning() {
+            const warningDiv = document.getElementById('accountWarning');
+            warningDiv.innerHTML = `
+                <div class="warning-box">
+                    <div class="warning-content">
+                        <i class="fas fa-exclamation-triangle warning-icon"></i>
+                        <div class="warning-text">
+                            <h3>Security Alert: Your Account Was Compromised!</h3>
+                            <p>Your email has been hacked due to a weak password. Next time, ensure your password is 8+ characters long with at least 1 digit and 1 symbol.</p>
+                            <button class="warning-button" onclick="resetAccountForm()">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.querySelector('.account-form').style.opacity = '0.5';
+        }
+
+        function resetAccountForm() {
+            document.getElementById('accountWarning').innerHTML = '';
+            document.querySelector('.account-form').style.opacity = '1';
+            document.getElementById('password').value = '';
+            document.getElementById('email').focus();
+        }
+
+        // Snake Game Component
+        function renderSnakeGame() {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Snake Game</h2>
+                        <p class="card-description">Use arrow keys to move. Eat the red food to grow!</p>
+                        <div class="score-display">
+                            <span class="score-label">Score: </span>
+                            <span class="score-value" id="gameScore">0</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <canvas id="gameCanvas" class="game-canvas" width="400" height="400"></canvas>
+                    </div>
+                    <div style="text-align: center;">
+                        <button id="startGameBtn" class="button button-primary" onclick="startSnakeGame()">Start Game</button>
+                        <div id="gameOverSection" class="hidden">
+                            <button class="button button-accent" onclick="continueToPayment()">Continue Playing - Unlock Premium Features</button>
+                            <div class="game-over-box">
+                                <h3 class="game-over-title">Game Over!</h3>
+                                <p class="game-over-text">Want to continue with premium features?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        let gameState_snake = {
+            snake: [{ x: 200, y: 200 }],
+            food: { x: 0, y: 0 },
+            dx: 20,
+            dy: 0,
+            score: 0,
+            running: false
+        };
+
+        function startSnakeGame() {
+            gameState_snake = {
+                snake: [{ x: 200, y: 200 }],
+                food: { x: 0, y: 0 },
+                dx: 20,
+                dy: 0,
+                score: 0,
+                running: true
+            };
+            
+            document.getElementById('gameScore').textContent = '0';
+            document.getElementById('startGameBtn').classList.add('hidden');
+            document.getElementById('gameOverSection').classList.add('hidden');
+            
+            generateFood();
+            gameLoop();
+        }
+
+        function generateFood() {
+            gameState_snake.food = {
+                x: Math.floor(Math.random() * 20) * 20,
+                y: Math.floor(Math.random() * 20) * 20
+            };
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'hsl(210, 40%, 99%)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'hsl(210, 100%, 45%)';
+            gameState_snake.snake.forEach(segment => {
+                ctx.fillRect(segment.x, segment.y, 18, 18);
+            });
+        }
+
+        function drawFood() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'hsl(0, 84%, 60%)';
+            ctx.fillRect(gameState_snake.food.x, gameState_snake.food.y, 18, 18);
+        }
+
+        function moveSnake() {
+            const head = {
+                x: gameState_snake.snake[0].x + gameState_snake.dx,
+                y: gameState_snake.snake[0].y + gameState_snake.dy
+            };
+            gameState_snake.snake.unshift(head);
+        }
+
+        function checkCollision() {
+            const head = gameState_snake.snake[0];
+            
+            if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) {
+                return true;
+            }
+            
+            for (let i = 1; i < gameState_snake.snake.length; i++) {
+                if (head.x === gameState_snake.snake[i].x && head.y === gameState_snake.snake[i].y) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        function checkFoodCollision() {
+            const head = gameState_snake.snake[0];
+            return head.x === gameState_snake.food.x && head.y === gameState_snake.food.y;
+        }
+
+        function gameLoop() {
+            if (!gameState_snake.running) return;
+            
+            setTimeout(() => {
+                clearCanvas();
+                moveSnake();
+                
+                if (checkCollision()) {
+                    gameState_snake.running = false;
+                    document.getElementById('gameOverSection').classList.remove('hidden');
+                    return;
+                }
+                
+                if (checkFoodCollision()) {
+                    gameState_snake.score += 10;
+                    document.getElementById('gameScore').textContent = gameState_snake.score;
+                    generateFood();
+                } else {
+                    gameState_snake.snake.pop();
+                }
+                
+                drawFood();
+                drawSnake();
+                
+                gameLoop();
+            }, 150);
+        }
+
+        function continueToPayment() {
+            updateGameState({ score: gameState_snake.score, currentStep: 3 });
+            renderContent();
+        }
+
+        // Payment Form Component
+        function renderPaymentForm() {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-crown card-icon accent"></i>
+                        <h2 class="card-title">Unlock Premium Gaming</h2>
+                        <p class="card-description">
+                            Get unlimited lives and exclusive power-ups for just $0.15/day
+                        </p>
+                    </div>
+                    <form onsubmit="handlePaymentSubmit(event)" class="payment-form">
+                        <div class="form-group">
+                            <label class="form-label" for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" oninput="formatCardNumber(this)">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label" for="expiry">Expiry Date</label>
+                                <input type="text" id="expiry" class="form-input" placeholder="MM/YY" oninput="formatExpiry(this)">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cvv">CVV</label>
+                                <input type="text" id="cvv" class="form-input" placeholder="123">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cardholder">Cardholder Name</label>
+                            <input type="text" id="cardholder" class="form-input" placeholder="John Doe">
+                        </div>
+                        <button type="submit" class="button button-accent">
+                            <i class="fas fa-credit-card" style="margin-right: 0.5rem;"></i>
+                            Pay $0.15/day
+                        </button>
+                    </form>
+                    <div id="paymentWarning"></div>
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <button class="paykeeper-logo" onclick="continueToResults()">PayKeeper Ltd.</button>
+                        <p class="paykeeper-text">Secure payment processing</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            const matches = value.match(/\d{4,16}/g);
+            const match = matches && matches[0] || '';
+            const parts = [];
+            for (let i = 0, len = match.length; i < len; i += 4) {
+                parts.push(match.substring(i, i + 4));
+            }
+            if (parts.length) {
+                input.value = parts.join(' ');
+            } else {
+                input.value = value;
+            }
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            if (value.length >= 2) {
+                input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            } else {
+                input.value = value;
+            }
+        }
+
+        function handlePaymentSubmit(e) {
+            e.preventDefault();
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            const expiry = document.getElementById('expiry').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+            const cardholder = document.getElementById('cardholder').value.trim();
+            
+            if (!cardNumber || !expiry || !cvv || !cardholder) {
+                showPaymentWarning();
+            }
+        }
+
+        function showPaymentWarning() {
+            const warningDiv = document.getElementById('paymentWarning');
+            warningDiv.innerHTML = `
+                <div class="warning-box">
+                    <div class="warning-content">
+                        <i class="fas fa-exclamation-triangle warning-icon"></i>
+                        <div class="warning-text">
+                            <h3>Security Alert!</h3>
+                            <p>You could have been hacked! Never enter card information before checking if it's safe to do so.</p>
+                            <button class="warning-button" onclick="resetPaymentForm()">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.querySelector('.payment-form').style.opacity = '0.5';
+        }
+
+        function resetPaymentForm() {
+            document.getElementById('paymentWarning').innerHTML = '';
+            document.querySelector('.payment-form').style.opacity = '1';
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiry').value = '';
+            document.getElementById('cvv').value = '';
+            document.getElementById('cardholder').value = '';
+        }
+
+        function continueToResults() {
+            updateGameState({ currentStep: 4 });
+            renderContent();
+        }
+
+        // Final Results Component
+        function renderFinalResults() {
+            const { finalScore, messages, totalPossible } = calculateScore();
+            const percentage = Math.round((finalScore / totalPossible) * 100);
+
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="final-score-circle">
+                            <span class="final-score-value">${finalScore}/${totalPossible}</span>
+                        </div>
+                        <h2 class="final-score-title">Security Awareness Score: ${percentage}%</h2>
+                        <p class="final-score-description">Here's how you performed in our cybersecurity awareness test</p>
+                    </div>
+                    
+                    ${gameState.capturedImage ? `
+                        <div class="captured-image">
+                            <p>Here's the image we captured:</p>
+                            <img src="${gameState.capturedImage}" alt="Captured from camera">
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        ${messages.map(message => `
+                            <div class="result-item ${message.startsWith('✅') ? 'success' : 'warning'}">
+                                <span class="result-item-icon">${message.substring(0, 2)}</span>
+                                <p class="result-item-text">${message.substring(3)}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="lessons-box">
+                        <h3 class="lessons-title">🎓 Key Security Lessons:</h3>
+                        <ul class="lessons-list">
+                            <li>• Always read privacy policies before granting permissions</li>
+                            <li>• Use strong passwords (8+ chars, numbers, symbols)</li>
+                            <li>• Verify payment processors before entering card details</li>
+                            <li>• Be cautious about camera and location access requests</li>
+                            <li>• Check contact information and terms of service</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button class="button button-primary" onclick="restartGame()">Take Test Again</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateScore() {
+            let finalScore = 0;
+            const messages = [];
+
+            if (gameState.cameraAllowed) {
+                messages.push("⚠️   You allowed camera access without checking what it would be used for.");
+            } else {
+                messages.push("✅   Good! You didn't allow camera access.");
+                finalScore += 1;
+            }
+
+            if (gameState.locationAllowed) {
+                messages.push("⚠️   You allowed location access without checking what it would be used for.");
+                if (gameState.userLocation) {
+                    messages.push(`📍   We recorded your location: ${gameState.userLocation.latitude.toFixed(4)}, ${gameState.userLocation.longitude.toFixed(4)}`);
+                }
+            } else {
+                messages.push("✅   Good! You didn't allow location access.");
+                finalScore += 1;
+            }
+
+            messages.push("✅   Good! You made a secure password!");
+            finalScore += 1;
+            
+            let privacyPoints = 0;
+            if (gameState.privacyChecked) {
+                messages.push("✅   Excellent! You checked the privacy policy.");
+                privacyPoints += 1;
+            }
+            if (gameState.termsChecked) {
+                messages.push("✅   Excellent! You checked the terms of use.");
+                privacyPoints += 1;
+            }
+            if (gameState.contactChecked) {
+                messages.push("✅   Excellent! You checked the contact information.");
+                privacyPoints += 1;
+            }
+            if (privacyPoints === 0) {
+                messages.push("⚠️   You didn't check the privacy policy, terms of use, or contact information.");
+            }
+            finalScore += privacyPoints;
+            
+            finalScore += 2;
+            messages.push("✅   Smart! You checked the payment processor information before entering card details.");
+            
+            return { finalScore, messages, totalPossible: 8 };
+        }
+
+        function restartGame() {
+            gameState = {
+                currentStep: 1,
+                cameraAllowed: false,
+                locationAllowed: false,
+                capturedImage: null,
+                userLocation: null,
+                privacyChecked: false,
+                termsChecked: false,
+                contactChecked: false,
+                score: 0,
+                accountCreated: false
+            };
+            renderContent();
+        }
+
+        // Modal Management
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            modal.classList.remove('hidden');
+            
+            if (type === 'privacy') {
+                title.textContent = 'Privacy Policy';
+                body.innerHTML = `
+                    <p>True Snake is a premium gaming platform offering classic Snake gameplay with modern features.</p>
+                    <p><strong>Data Collection:</strong> We collect minimal data necessary to provide our gaming services. Camera and location data are used for enhanced gameplay features.</p>
+                    <p><strong>Storage:</strong> Game data and preferences are stored securely to enhance your gaming experience.</p>
+                    <p><strong>Purpose:</strong> All data collection is designed to provide personalized gaming experiences and improve our services.</p>
+                    <p><strong>Payments:</strong> We use secure payment processing for premium features and subscriptions.</p>
+                `;
+                updateGameState({ privacyChecked: true });
+            } else if (type === 'terms') {
+                title.textContent = 'Terms of Use';
+                body.innerHTML = `
+                    <p><strong>Gaming Service:</strong> True Snake provides premium gaming services including unlimited lives, power-ups, and exclusive content.</p>
+                    <p><strong>Payment Terms:</strong> Daily subscriptions are charged at $0.15/day and can be cancelled anytime.</p>
+                    <p><strong>Account Security:</strong> Users are responsible for maintaining secure passwords and account information.</p>
+                    <p><strong>Game Features:</strong> Premium users gain access to advanced features, customization options, and exclusive gameplay modes.</p>
+                    <p><strong>Liability:</strong> True Snake is not responsible for any gaming addiction or time spent playing our games.</p>
+                `;
+                updateGameState({ termsChecked: true });
+            } else if (type === 'contact') {
+                title.textContent = 'Contact Information';
+                body.innerHTML = `
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <span>Fantik</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>yulianav148@edu.sd45.bc.ca</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span>https://knowledgeflow.org/initiative/unhackathon-2025/</span>
+                    </div>
+                    <div class="contact-divider">
+                        <p class="contact-footer">True Snake - Classic gaming experience</p>
+                    </div>
+                `;
+                updateGameState({ contactChecked: true });
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Keyboard Controls for Snake Game
+        document.addEventListener('keydown', (e) => {
+            if (!gameState_snake.running) return;
+            
+            const LEFT_KEY = 37;
+            const RIGHT_KEY = 39;
+            const UP_KEY = 38;
+            const DOWN_KEY = 40;
+            
+            const keyPressed = e.keyCode;
+            const goingUp = gameState_snake.dy === -20;
+            const goingDown = gameState_snake.dy === 20;
+            const goingRight = gameState_snake.dx === 20;
+            const goingLeft = gameState_snake.dx === -20;
+            
+            if (keyPressed === LEFT_KEY && !goingRight) {
+                gameState_snake.dx = -20;
+                gameState_snake.dy = 0;
+            }
+            if (keyPressed === UP_KEY && !goingDown) {
+                gameState_snake.dx = 0;
+                gameState_snake.dy = -20;
+            }
+            if (keyPressed === RIGHT_KEY && !goingLeft) {
+                gameState_snake.dx = 20;
+                gameState_snake.dy = 0;
+            }
+            if (keyPressed === DOWN_KEY && !goingUp) {
+                gameState_snake.dx = 0;
+                gameState_snake.dy = 20;
+            }
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+        });
+
+        // Theme management
+        function getTheme() {
+            return localStorage.getItem('theme') || 'light';
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            const themeIcon = document.querySelector('.theme-icon');
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+        }
+        
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+        
+        // Initialize theme
+        setTheme(getTheme());
+    </script>
+</body>
+</html>

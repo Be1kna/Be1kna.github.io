@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Color Manipulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <a href="../index.html" class="back-to-menu-btn" title="Back to Menu">
+                    ← Back to Menu
+                </a>
+                <div>
+                    <h1>Photo Color Manipulator</h1>
+                    <p>Upload an image and transform its colors using RGB or HSV values</p>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-options">
+                    <div class="file-upload">
+                        <input type="file" id="imageInput" accept="image/*" />
+                        <label for="imageInput" class="upload-label">
+                            <span class="upload-icon">📷</span>
+                            <span class="upload-text">Choose Single Image</span>
+                        </label>
+                    </div>
+                    <div class="file-upload">
+                        <input type="file" id="folderInput" webkitdirectory directory multiple accept="image/*" />
+                        <label for="folderInput" class="upload-label">
+                            <span class="upload-icon">📁</span>
+                            <span class="upload-text">Choose Folder</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="imagePreview" class="image-preview"></div>
+                <div id="batchPreview" class="batch-preview"></div>
+            </div>
+
+            <div class="controls-section">
+                <div class="color-picker-section">
+                    <h3>Choose Target Color</h3>
+                    <div class="color-inputs">
+                        <input type="color" id="colorPicker" value="#ff0000" />
+                        <div class="color-values">
+                            <div class="color-input-group">
+                                <label for="hexInput">HEX:</label>
+                                <input type="text" id="hexInput" value="#ff0000" placeholder="#ff0000" />
+                            </div>
+                            <div class="color-input-group">
+                                <label for="rgbInput">RGB:</label>
+                                <input type="text" id="rgbInput" value="rgb(255, 0, 0)" placeholder="rgb(255, 0, 0)" />
+                            </div>
+                            <div class="color-input-group">
+                                <label for="hsvInput">HSV:</label>
+                                <input type="text" id="hsvInput" value="hsv(0, 100%, 100%)" placeholder="hsv(0, 100%, 100%)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mode-selection">
+                    <h3>Choose Color Mode</h3>
+                    <div class="mode-buttons">
+                        <button id="rgbMode" class="mode-btn active">RGB</button>
+                        <button id="hsvMode" class="mode-btn">HSV</button>
+                    </div>
+                </div>
+
+                <div class="channel-selection">
+                    <h3>Select Channels to Change</h3>
+                    <p class="instruction">Choose up to 2 channels to modify (changing all 3 would result in a solid color)</p>
+                    <div id="rgbChannels" class="channel-group">
+                        <label class="channel-option">
+                            <input type="checkbox" id="redChannel" />
+                            <span>Red (R)</span>
+                        </label>
+                        <label class="channel-option">
+                            <input type="checkbox" id="greenChannel" />
+                            <span>Green (G)</span>
+                        </label>
+                        <label class="channel-option">
+                            <input type="checkbox" id="blueChannel" />
+                            <span>Blue (B)</span>
+                        </label>
+                    </div>
+                    <div id="hsvChannels" class="channel-group" style="display: none;">
+                        <label class="channel-option">
+                            <input type="checkbox" id="hueChannel" />
+                            <span>Hue (H)</span>
+                        </label>
+                        <label class="channel-option">
+                            <input type="checkbox" id="saturationChannel" />
+                            <span>Saturation (S)</span>
+                        </label>
+                        <label class="channel-option">
+                            <input type="checkbox" id="valueChannel" />
+                            <span>Value (V)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="processBtn" class="process-btn" disabled>Process Image(s)</button>
+                    <button id="downloadBtn" class="download-btn" disabled>Download Result</button>
+                    <button id="downloadAllBtn" class="download-all-btn" disabled>Download All</button>
+                </div>
+                
+                <div id="progressSection" class="progress-section" style="display: none;">
+                    <h3>Processing Progress</h3>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">0% Complete</div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>Result Preview</h3>
+                <div id="resultPreview" class="result-preview"></div>
+                <div id="batchResults" class="batch-results"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Theme management
+        function getTheme() {
+            return localStorage.getItem('theme') || 'light';
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            const themeIcon = document.querySelector('.theme-icon');
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+        }
+        
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+        
+        // Initialize theme
+        setTheme(getTheme());
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub - Choose Your Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>🎯 Project Hub</h1>
+                    <p>Choose from our collection of powerful tools and games</p>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="projects-grid">
+                <!-- Color Change Project -->
+                <div class="project-card">
+                    <div class="project-icon">🎨</div>
+                    <h3>Color Change</h3>
+                    <p>Transform image colors using RGB or HSV values with precision control</p>
+                    <div class="project-features">
+                        <span class="feature-tag">Single Image</span>
+                        <span class="feature-tag">Batch Processing</span>
+                        <span class="feature-tag">RGB/HSV</span>
+                    </div>
+                    <a href="Color Change/index.html" class="project-link">
+                        <button class="launch-btn">Launch Color Change</button>
+                    </a>
+                </div>
+
+                <!-- Quantizer Project -->
+                <div class="project-card">
+                    <div class="project-icon">🔢</div>
+                    <h3>Color Quantizer</h3>
+                    <p>Reduce colors in images with advanced quantization algorithms</p>
+                    <div class="project-features">
+                        <span class="feature-tag">Color Reduction</span>
+                        <span class="feature-tag">Dithering</span>
+                        <span class="feature-tag">Batch Processing</span>
+                    </div>
+                    <a href="Quantizer/index.html" class="project-link">
+                        <button class="launch-btn">Launch Quantizer</button>
+                    </a>
+                </div>
+
+                <!-- Resizing Project -->
+                <div class="project-card">
+                    <div class="project-icon">🖼️</div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images with professional interpolation methods</p>
+                    <div class="project-features">
+                        <span class="feature-tag">Multiple Methods</span>
+                        <span class="feature-tag">Aspect Ratio</span>
+                        <span class="feature-tag">Batch Processing</span>
+                    </div>
+                    <a href="Resizing/index.html" class="project-link">
+                        <button class="launch-btn">Launch Resizer</button>
+                    </a>
+                </div>
+
+                <!-- Uno Game Project -->
+                <div class="project-card">
+                    <div class="project-icon">🃏</div>
+                    <h3>UNO Game</h3>
+                    <p>Play the classic UNO card game with 2 players</p>
+                    <div class="project-features">
+                        <span class="feature-tag">2 Players</span>
+                        <span class="feature-tag">Classic Rules</span>
+                        <span class="feature-tag">Interactive</span>
+                    </div>
+                    <a href="Uno/index.html" class="project-link">
+                        <button class="launch-btn">Play UNO</button>
+                    </a>
+                </div>
+
+                <!-- PrivacyPlay Project -->
+                <div class="project-card">
+                    <div class="project-icon">🐍</div>
+                    <h3>PrivacyPlay</h3>
+                    <p>Privacy-focused Snake game that demonstrates data collection concerns</p>
+                    <div class="project-features">
+                        <span class="feature-tag">Privacy Demo</span>
+                        <span class="feature-tag">Snake Game</span>
+                        <span class="feature-tag">Educational</span>
+                    </div>
+                    <a href="PrivacyPlay/index.html" class="project-link">
+                        <button class="launch-btn">Launch PrivacyPlay</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>About These Projects</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>🎨 Photo Editing Tools</h4>
+                        <p>Professional-grade image manipulation tools for color adjustment, quantization, and resizing with batch processing capabilities.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🃏 Interactive Games</h4>
+                        <p>Classic card games and privacy-focused educational games recreated with modern web technologies for entertainment and learning.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with modern web technologies • Choose your adventure above!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-icon');
+        
+        function getTheme() {
+            return localStorage.getItem('theme') || 'light';
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+        
+        // Initialize theme
+        setTheme(getTheme());
+    </script>
+</body>
+</html>

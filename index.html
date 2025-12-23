@@ -100,7 +100,7 @@
                 if (p.embedUrl) {
                     const controls = document.createElement('div'); controls.style.display='flex'; controls.style.gap='0.5rem'; controls.style.justifyContent='center';
                     const previewBtn = document.createElement('button'); previewBtn.className='launch-btn'; previewBtn.style.width='auto'; previewBtn.textContent = 'Preview';
-                    const openBtn = document.createElement('a'); openBtn.className='launch-btn'; openBtn.style.width='auto'; openBtn.style.display='inline-block'; openBtn.textContent = p.buttonText || 'Open'; openBtn.href = p.url; openBtn.target='_blank';
+                    const openBtn = document.createElement('a'); openBtn.className='launch-btn'; openBtn.style.width='auto'; openBtn.style.display='inline-block'; openBtn.textContent = p.buttonText || 'Open'; openBtn.href = p.url;
                     controls.appendChild(previewBtn); controls.appendChild(openBtn);
                     linkWrap.appendChild(controls);
 
@@ -118,7 +118,7 @@
                         iframeWrap.style.display = iframeWrap.style.display === 'none' ? 'block' : 'none';
                     };
                 } else {
-                    const a = document.createElement('a'); a.href = p.url; a.target = '_blank'; a.className = 'project-link';
+                    const a = document.createElement('a'); a.href = p.url; a.className = 'project-link';
                     const btn = document.createElement('button'); btn.className = 'launch-btn'; btn.textContent = p.buttonText || 'Open';
                     a.appendChild(btn);
                     linkWrap.appendChild(a);

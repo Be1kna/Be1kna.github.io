@@ -1,11 +1,23 @@
 [
   {
+    "id": "applab-hub",
+    "title": "Applab Games Hub",
+    "description": "Hub for all my Applab games and projects",
+    "icon": "🎮",
+    "tags": ["Games","Apps","Projects"],
+    "url": "https://be1kna.github.io/uncertainty-calculator/",
+    "embedUrl": "",
+    "buttonText": "Applab Hub",
+    "dateAdded": "2025-12-22T00:00:00Z"
+  },
+  {
     "id": "uncertainty-calculator",
     "title": "Uncertainty Calculator",
     "description": "Calculate equations with accurate uncertainty propagation and step-by-step explanations",
     "icon": "⚗️",
     "tags": ["Physics Tool","Uncertainty","Explanations"],
     "url": "https://be1kna.github.io/uncertainty-calculator/",
+    "embedUrl": "",
     "buttonText": "Launch Calculator",
     "dateAdded": "2025-12-22T00:00:00Z"
   },
@@ -16,6 +28,7 @@
     "icon": "🔢",
     "tags": ["Color Reduction","Dithering","Batch"],
     "url": "https://be1kna.github.io/quantizer/",
+    "embedUrl": "",
     "buttonText": "Launch Quantizer",
     "dateAdded": "2025-12-20T00:00:00Z"
   },
@@ -26,6 +39,7 @@
     "icon": "🎨",
     "tags": ["Single Image","RGB/HSV","Editor"],
     "url": "https://be1kna.github.io/color-change/",
+    "embedUrl": "",
     "buttonText": "Launch Color Change",
     "dateAdded": "2025-12-18T00:00:00Z"
   },
@@ -36,6 +50,7 @@
     "icon": "🖼️",
     "tags": ["Multiple Methods","Aspect Ratio","Batch"],
     "url": "https://be1kna.github.io/resizing/",
+    "embedUrl": "",
     "buttonText": "Launch Resizer",
     "dateAdded": "2025-12-15T00:00:00Z"
   },
@@ -46,6 +61,7 @@
     "icon": "🐍",
     "tags": ["Privacy Demo","Snake Game","Educational"],
     "url": "https://be1kna.github.io/privacy-play/",
+    "embedUrl": "",
     "buttonText": "Launch PrivacyPlay",
     "dateAdded": "2025-12-10T00:00:00Z"
   }

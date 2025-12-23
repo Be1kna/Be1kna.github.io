@@ -94,9 +94,35 @@
                 const feats = document.createElement('div'); feats.className = 'project-features';
                 (p.tags||[]).slice(0,3).forEach(t => { const s=document.createElement('span'); s.className='feature-tag'; s.textContent=t; feats.appendChild(s); });
 
-                const linkWrap = document.createElement('a'); linkWrap.className='project-link'; linkWrap.href = p.url; linkWrap.target='_blank' ;
-                const btn = document.createElement('button'); btn.className='launch-btn'; btn.textContent = p.buttonText || 'Open';
-                linkWrap.appendChild(btn);
+                const linkWrap = document.createElement('div'); linkWrap.className='project-link';
+
+                // If project has an embedUrl, show preview toggle + iframe
+                if (p.embedUrl) {
+                    const controls = document.createElement('div'); controls.style.display='flex'; controls.style.gap='0.5rem'; controls.style.justifyContent='center';
+                    const previewBtn = document.createElement('button'); previewBtn.className='launch-btn'; previewBtn.style.width='auto'; previewBtn.textContent = 'Preview';
+                    const openBtn = document.createElement('a'); openBtn.className='launch-btn'; openBtn.style.width='auto'; openBtn.style.display='inline-block'; openBtn.textContent = p.buttonText || 'Open'; openBtn.href = p.url; openBtn.target='_blank';
+                    controls.appendChild(previewBtn); controls.appendChild(openBtn);
+                    linkWrap.appendChild(controls);
+
+                    const iframeWrap = document.createElement('div'); iframeWrap.style.marginTop='1rem'; iframeWrap.style.display='none';
+                    const iframe = document.createElement('iframe');
+                    iframe.src = p.embedUrl;
+                    iframe.width = '100%';
+                    iframe.height = '500';
+                    iframe.style.border = '1px solid rgba(0,0,0,0.12)';
+                    iframe.sandbox = 'allow-scripts allow-forms allow-same-origin';
+                    iframeWrap.appendChild(iframe);
+                    linkWrap.appendChild(iframeWrap);
+
+                    previewBtn.onclick = () => {
+                        iframeWrap.style.display = iframeWrap.style.display === 'none' ? 'block' : 'none';
+                    };
+                } else {
+                    const a = document.createElement('a'); a.href = p.url; a.target = '_blank'; a.className = 'project-link';
+                    const btn = document.createElement('button'); btn.className = 'launch-btn'; btn.textContent = p.buttonText || 'Open';
+                    a.appendChild(btn);
+                    linkWrap.appendChild(a);
+                }
 
                 card.appendChild(icon);
                 card.appendChild(title);

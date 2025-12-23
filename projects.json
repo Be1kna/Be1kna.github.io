@@ -1,0 +1,52 @@
+[
+  {
+    "id": "uncertainty-calculator",
+    "title": "Uncertainty Calculator",
+    "description": "Calculate equations with accurate uncertainty propagation and step-by-step explanations",
+    "icon": "⚗️",
+    "tags": ["Physics Tool","Uncertainty","Explanations"],
+    "url": "https://be1kna.github.io/uncertainty-calculator/",
+    "buttonText": "Launch Calculator",
+    "dateAdded": "2025-12-22T00:00:00Z"
+  },
+  {
+    "id": "quantizer",
+    "title": "Color Quantizer",
+    "description": "Reduce colors in images with advanced quantization algorithms",
+    "icon": "🔢",
+    "tags": ["Color Reduction","Dithering","Batch"],
+    "url": "https://be1kna.github.io/quantizer/",
+    "buttonText": "Launch Quantizer",
+    "dateAdded": "2025-12-20T00:00:00Z"
+  },
+  {
+    "id": "color-change",
+    "title": "Color Change",
+    "description": "Transform image colors using RGB or HSV values with precision control",
+    "icon": "🎨",
+    "tags": ["Single Image","RGB/HSV","Editor"],
+    "url": "https://be1kna.github.io/color-change/",
+    "buttonText": "Launch Color Change",
+    "dateAdded": "2025-12-18T00:00:00Z"
+  },
+  {
+    "id": "resizer",
+    "title": "Image Resizer",
+    "description": "Resize images with professional interpolation methods",
+    "icon": "🖼️",
+    "tags": ["Multiple Methods","Aspect Ratio","Batch"],
+    "url": "https://be1kna.github.io/resizing/",
+    "buttonText": "Launch Resizer",
+    "dateAdded": "2025-12-15T00:00:00Z"
+  },
+  {
+    "id": "privacy-play",
+    "title": "Privacy Play",
+    "description": "Privacy-focused Snake game that demonstrates data collection concerns",
+    "icon": "🐍",
+    "tags": ["Privacy Demo","Snake Game","Educational"],
+    "url": "https://be1kna.github.io/privacy-play/",
+    "buttonText": "Launch PrivacyPlay",
+    "dateAdded": "2025-12-10T00:00:00Z"
+  }
+]

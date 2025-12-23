@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub - Choose Your Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>🎯 Project Hub</h1>
+                    <p>Choose from our collection of powerful tools and games</p>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Project cards will be rendered here from projects.json -->
+            </div>
+
+            <div class="info-section">
+                <h2>About These Projects</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>🎨 Photo Editing Tools</h4>
+                        <p>Professional-grade image manipulation tools for color adjustment, quantization, and resizing with batch processing capabilities.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🃏 Interactive Games</h4>
+                        <p>Classic card games and privacy-focused educational games recreated with modern web technologies for entertainment and learning.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with modern web technologies • Choose your adventure above!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-icon');
+        
+        function getTheme() {
+            return localStorage.getItem('theme') || 'light';
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+        
+        // Initialize theme
+        setTheme(getTheme());
+        
+        // Projects loader (read-only)
+        async function loadProjects() {
+            try {
+                const res = await fetch('projects.json');
+                const list = await res.json();
+                renderProjects(list);
+            } catch (e) {
+                console.error('Failed to load projects.json', e);
+            }
+        }
+
+        function renderProjects(projects) {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+            projects.forEach((p) => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+
+                const icon = document.createElement('div'); icon.className = 'project-icon'; icon.textContent = p.icon || '🔗';
+                const title = document.createElement('h3'); title.textContent = p.title;
+                const desc = document.createElement('p'); desc.textContent = p.description || '';
+
+                const feats = document.createElement('div'); feats.className = 'project-features';
+                (p.tags||[]).slice(0,3).forEach(t => { const s=document.createElement('span'); s.className='feature-tag'; s.textContent=t; feats.appendChild(s); });
+
+                const linkWrap = document.createElement('a'); linkWrap.className='project-link'; linkWrap.href = p.url; linkWrap.target='_blank' ;
+                const btn = document.createElement('button'); btn.className='launch-btn'; btn.textContent = p.buttonText || 'Open';
+                linkWrap.appendChild(btn);
+
+                card.appendChild(icon);
+                card.appendChild(title);
+                card.appendChild(desc);
+                card.appendChild(feats);
+                card.appendChild(linkWrap);
+
+                grid.appendChild(card);
+            });
+        }
+
+        loadProjects();
+    </script>
+</body>
+</html>

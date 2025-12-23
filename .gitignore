@@ -1,0 +1,16 @@
+.DS_Store
+# Ignore everything by default, only allow explicitly whitelisted files below
+/*
+
+# Keep git metadata and this file
+!.git/
+!.gitignore
+
+# Site files we want in the main repo
+!index.html
+!styles.css
+!projects.json
+!README.md
+
+# Allow any top-level dotfiles that are useful
+!.well-known/

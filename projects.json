@@ -2,7 +2,7 @@
   {
     "id": "applab-hub",
     "title": "Applab Games Hub",
-    "description": "Hub for all my Applab games and projects",
+    "description": "Hub for all my Applab games, projects, and apps. Browse and launch them easily.",
     "icon": "🎮",
     "tags": ["Games","Apps","Projects"],
     "url": "https://be1kna.github.io/applab/",
@@ -13,7 +13,7 @@
   {
     "id": "uncertainty-calculator",
     "title": "Uncertainty Calculator",
-    "description": "Calculate equations with accurate uncertainty propagation and step-by-step explanations",
+    "description": "Calculate equations with accurate uncertainty and range.",
     "icon": "⚗️",
     "tags": ["Physics Tool","Uncertainty","Explanations"],
     "url": "https://be1kna.github.io/uncertainty-calculator/",

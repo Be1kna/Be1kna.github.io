@@ -11,6 +11,17 @@
     "dateAdded": "2025-12-22T00:00:00Z"
   },
   {
+    "id": "cmu-hub",
+    "title": "CMU Academy Hub",
+    "description": "Hub for all my CMU Academy scenes, interactive screens and games. Browse and launch them easily.",
+    "icon": "🎮",
+    "tags": ["Games","Apps","Projects"],
+    "url": "https://be1kna.github.io/cmu-hub/",
+    "embedUrl": "",
+    "buttonText": "CMU Academy Hub",
+    "dateAdded": "2025-12-22T00:00:00Z"
+  },
+  {
     "id": "uncertainty-calculator",
     "title": "Uncertainty Calculator",
     "description": "Calculate equations with accurate uncertainty and range.",

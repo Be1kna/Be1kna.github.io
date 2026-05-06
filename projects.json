@@ -75,5 +75,16 @@
     "embedUrl": "",
     "buttonText": "Launch PrivacyPlay",
     "dateAdded": "2025-12-10T00:00:00Z"
+  },
+  {
+    "id": "writing-portfolio",
+    "title": "Writing Portfolio",
+    "description": "Showcase of my writing projects and creative works.",
+    "icon": "📝",
+    "tags": ["Writing","Poetry","Creative"],
+    "url": "https://be1kna.github.io/writing-portfolio/",
+    "embedUrl": "",
+    "buttonText": "Launch Writing Portfolio",
+    "dateAdded": "2025-12-05T00:00:00Z"
   }
 ]

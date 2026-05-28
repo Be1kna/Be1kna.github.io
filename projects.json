@@ -8,7 +8,7 @@
     "url": "https://be1kna.github.io/applab/",
     "embedUrl": "",
     "buttonText": "Applab Hub",
-    "dateAdded": "2025-12-22T00:00:00Z"
+    "order": "1"
   },
   {
     "id": "cmu-hub",
@@ -19,7 +19,7 @@
     "url": "https://be1kna.github.io/cmu-hub/",
     "embedUrl": "",
     "buttonText": "CMU Academy Hub",
-    "dateAdded": "2025-12-22T00:00:00Z"
+    "order": "2"
   },
   {
     "id": "uncertainty-calculator",
@@ -30,7 +30,7 @@
     "url": "https://be1kna.github.io/uncertainty-calculator/",
     "embedUrl": "",
     "buttonText": "Launch Calculator",
-    "dateAdded": "2025-12-22T00:00:00Z"
+    "order": "3"
   },
   {
     "id": "quantizer",
@@ -41,7 +41,7 @@
     "url": "https://be1kna.github.io/quantizer/",
     "embedUrl": "",
     "buttonText": "Launch Quantizer",
-    "dateAdded": "2025-12-20T00:00:00Z"
+    "order": "4"
   },
   {
     "id": "color-change",
@@ -52,7 +52,7 @@
     "url": "https://be1kna.github.io/color-change/",
     "embedUrl": "",
     "buttonText": "Launch Color Change",
-    "dateAdded": "2025-12-18T00:00:00Z"
+    "order": "5"
   },
   {
     "id": "resizer",
@@ -63,7 +63,7 @@
     "url": "https://be1kna.github.io/resizing/",
     "embedUrl": "",
     "buttonText": "Launch Resizer",
-    "dateAdded": "2025-12-15T00:00:00Z"
+    "order": "6"
   },
   {
     "id": "privacy-play",
@@ -74,17 +74,6 @@
     "url": "https://be1kna.github.io/privacy-play/",
     "embedUrl": "",
     "buttonText": "Launch PrivacyPlay",
-    "dateAdded": "2025-12-10T00:00:00Z"
-  },
-  {
-    "id": "writing-portfolio",
-    "title": "Writing Portfolio",
-    "description": "Showcase of my writing projects and creative works.",
-    "icon": "📝",
-    "tags": ["Writing","Poetry","Creative"],
-    "url": "https://be1kna.github.io/writing-portfolio/",
-    "embedUrl": "",
-    "buttonText": "Launch Portfolio",
-    "dateAdded": "2025-12-05T00:00:00Z"
+    "order": "7"
   }
 ]

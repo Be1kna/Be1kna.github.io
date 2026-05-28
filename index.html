@@ -29,19 +29,20 @@
                 <h2>About These Projects</h2>
                 <div class="info-grid">
                     <div class="info-card">
-                        <h4>🎨 Photo Editing Tools</h4>
-                        <p>Professional-grade image manipulation tools for color adjustment, quantization, and resizing with batch processing capabilities.</p>
+                        <h4>💻 Written Code</h4>
+                        <p>Various projects showcasing coding skills. Includes web pages made with help of AI and hand-written games and applications.</p>
                     </div>
                     <div class="info-card">
-                        <h4>🃏 Interactive Games</h4>
-                        <p>Classic card games and privacy-focused educational games recreated with modern web technologies for entertainment and learning.</p>
+                        <h4>📔 Other Portfolios</h4>
+                        <p>Showcase of projects in various fields of interest such as coding, drafting, CAD, and writing.</p>
                     </div>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>Built with modern web technologies • Choose your adventure above!</p>
+            <p id="footerLinks" aria-label="Footer links"></p>
+            <p>Be1kna's website full of projects presented as my portfolio.</p>
         </footer>
     </div>
 
@@ -74,9 +75,60 @@
             try {
                 const res = await fetch('projects.json');
                 const list = await res.json();
-                renderProjects(list);
+                const sorted = [...list].sort((a, b) => {
+                    const aOrder = Number(a.order);
+                    const bOrder = Number(b.order);
+
+                    // Keep unordered items at the end while preserving stable tie behavior.
+                    if (Number.isNaN(aOrder) && Number.isNaN(bOrder)) return 0;
+                    if (Number.isNaN(aOrder)) return 1;
+                    if (Number.isNaN(bOrder)) return -1;
+                    return aOrder - bOrder;
+                });
+                renderProjects(sorted);
             } catch (e) {
                 console.error('Failed to load projects.json', e);
+            }
+        }
+
+        async function loadFooterLinks() {
+            try {
+                const res = await fetch('footer.json');
+                const links = await res.json();
+                const footerLinks = document.getElementById('footerLinks');
+
+                if (!Array.isArray(links) || links.length === 0) {
+                    footerLinks.textContent = '';
+                    return;
+                }
+
+                footerLinks.innerHTML = '';
+                links
+                    .sort((a, b) => {
+                        const aOrder = Number(a.order);
+                        const bOrder = Number(b.order);
+
+                        if (Number.isNaN(aOrder) && Number.isNaN(bOrder)) return 0;
+                        if (Number.isNaN(aOrder)) return 1;
+                        if (Number.isNaN(bOrder)) return -1;
+                        return aOrder - bOrder;
+                    })
+                    .forEach((item, index) => {
+                        const a = document.createElement('a');
+                        a.href = item.url;
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        a.textContent = item.title || item.id || item.url;
+                        a.style.color = 'inherit';
+
+                        footerLinks.appendChild(a);
+
+                        if (index < links.length - 1) {
+                            footerLinks.appendChild(document.createTextNode(' • '));
+                        }
+                    });
+            } catch (e) {
+                console.error('Failed to load footer.json', e);
             }
         }
 
@@ -135,6 +187,7 @@
         }
 
         loadProjects();
+        loadFooterLinks();
     </script>
 </body>
 </html>

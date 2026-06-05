@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Hub - Choose Your Tool</title>
+    <link rel="stylesheet" href="https://be1kna.github.io/my_assets/global.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="projects-hub-page">
     <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-title">
-                    <h1>🎯 Project Hub</h1>
-                    <p>Choose from our collection of powerful tools and games</p>
-                </div>
+        <header class="site-header">
+            <div class="header-spacer" aria-hidden="true"></div>
+            <div class="title projects-hub-title">
+                <h1>🎯 Project Hub</h1>
+                <p class="subtitle">Choose from my collection of tools, games, and portfolio hubs.</p>
+            </div>
+            <div class="actions">
                 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
                     <span class="theme-icon">🌙</span>
                 </button>
@@ -40,7 +42,7 @@
             </div>
         </main>
 
-        <footer>
+        <footer class="site-footer">
             <p id="footerLinks" aria-label="Footer links"></p>
             <p>Be1kna's website full of projects presented as my portfolio.</p>
         </footer>
@@ -140,39 +142,38 @@
                 card.className = 'project-card';
 
                 const icon = document.createElement('div'); icon.className = 'project-icon'; icon.textContent = p.icon || '🔗';
-                const title = document.createElement('h3'); title.textContent = p.title;
-                const desc = document.createElement('p'); desc.textContent = p.description || '';
+                const title = document.createElement('h3'); title.className = 'project-title'; title.textContent = p.title;
+                const desc = document.createElement('p'); desc.className = 'project-desc'; desc.textContent = p.description || '';
 
-                const feats = document.createElement('div'); feats.className = 'project-features';
-                (p.tags||[]).slice(0,3).forEach(t => { const s=document.createElement('span'); s.className='feature-tag'; s.textContent=t; feats.appendChild(s); });
+                const feats = document.createElement('div'); feats.className = 'project-tags';
+                (p.tags||[]).slice(0,3).forEach(t => { const s=document.createElement('span'); s.className='tag'; s.textContent=t; feats.appendChild(s); });
 
-                const linkWrap = document.createElement('div'); linkWrap.className='project-link';
+                const linkWrap = document.createElement('div'); linkWrap.className='card-controls';
 
                 // If project has an embedUrl, show preview toggle + iframe
                 if (p.embedUrl) {
-                    const controls = document.createElement('div'); controls.style.display='flex'; controls.style.gap='0.5rem'; controls.style.justifyContent='center';
-                    const previewBtn = document.createElement('button'); previewBtn.className='launch-btn'; previewBtn.style.width='auto'; previewBtn.textContent = 'Preview';
-                    const openBtn = document.createElement('a'); openBtn.className='launch-btn'; openBtn.style.width='auto'; openBtn.style.display='inline-block'; openBtn.textContent = p.buttonText || 'Open'; openBtn.href = p.url;
-                    controls.appendChild(previewBtn); controls.appendChild(openBtn);
-                    linkWrap.appendChild(controls);
+                    const previewBtn = document.createElement('button'); previewBtn.className='launch-btn'; previewBtn.textContent = 'Preview';
+                    const openBtn = document.createElement('a'); openBtn.className='open-link'; openBtn.textContent = p.buttonText || 'Open'; openBtn.href = p.url;
+                    openBtn.target = '_blank';
+                    openBtn.rel = 'noopener noreferrer';
+                    linkWrap.appendChild(previewBtn);
+                    linkWrap.appendChild(openBtn);
 
-                    const iframeWrap = document.createElement('div'); iframeWrap.style.marginTop='1rem'; iframeWrap.style.display='none';
+                    const iframeWrap = document.createElement('div'); iframeWrap.className = 'inline-preview';
                     const iframe = document.createElement('iframe');
                     iframe.src = p.embedUrl;
-                    iframe.width = '100%';
-                    iframe.height = '500';
-                    iframe.style.border = '1px solid rgba(0,0,0,0.12)';
+                    iframe.className = 'preview-frame';
                     iframe.sandbox = 'allow-scripts allow-forms allow-same-origin';
                     iframeWrap.appendChild(iframe);
-                    linkWrap.appendChild(iframeWrap);
+                    card.appendChild(iframeWrap);
 
                     previewBtn.onclick = () => {
-                        iframeWrap.style.display = iframeWrap.style.display === 'none' ? 'block' : 'none';
+                        iframeWrap.classList.toggle('open');
                     };
                 } else {
-                    const a = document.createElement('a'); a.href = p.url; a.className = 'project-link';
-                    const btn = document.createElement('button'); btn.className = 'launch-btn'; btn.textContent = p.buttonText || 'Open';
-                    a.appendChild(btn);
+                    const a = document.createElement('a'); a.href = p.url; a.className = 'launch-btn'; a.textContent = p.buttonText || 'Open';
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
                     linkWrap.appendChild(a);
                 }
 
@@ -181,7 +182,6 @@
                 card.appendChild(desc);
                 card.appendChild(feats);
                 card.appendChild(linkWrap);
-
                 grid.appendChild(card);
             });
         }

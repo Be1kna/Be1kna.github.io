@@ -10,6 +10,7 @@
 !index.html
 !styles.css
 !projects.json
+!footer.json
 !README.md
 
 # Allow any top-level dotfiles that are useful
